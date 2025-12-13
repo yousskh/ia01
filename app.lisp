@@ -154,9 +154,9 @@
 (define-easy-handler (api-run :uri "/api/diagnostic") ()
   (let* ((p (cl-json:decode-json-from-string
              (raw-post-data :force-text t)))
-         (facts (getf p :facts))
-         (mode (getf p :mode))
-         (goal (getf p :goal)))
+         (facts (cdr (assoc :facts p)))
+         (mode (cdr (assoc :mode p)))
+         (goal (cdr (assoc :goal p))))
     (json
      (if (string= mode "backward")
          (backward-prove goal facts)
