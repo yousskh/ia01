@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Système expert (démo)</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Système expert — Démo</h1>
+    <p class="muted">Choisis des faits, puis lance un diagnostic (chaînage avant) ou une preuve (chaînage arrière).</p>
+
+    <section class="card">
+      <h2>Faits (depuis SQLite)</h2>
+      <div id="facts" class="facts"></div>
+      <button id="reloadFacts">Recharger</button>
+    </section>
+
+    <section class="card">
+      <h2>Exécution</h2>
+
+      <div class="row">
+        <label>Mode</label>
+        <select id="mode">
+          <option value="forward">Chaînage avant</option>
+          <option value="backward">Chaînage arrière</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Goal (uniquement arrière)</label>
+        <input id="goal" type="text"
+               placeholder='ex: ACTION_RECOMMANDEE(pc_lent,Nettoyer le système de refroidissement)' />
+      </div>
+
+      <button id="run">Lancer</button>
+    </section>
+
+    <section class="card">
+      <h2>Résultat</h2>
+      <pre id="out">{}</pre>
+    </section>
+
+    <section class="card">
+      <h2>Ajouter un fait</h2>
+      <div class="row">
+        <label>Code</label>
+        <input id="newFactCode" type="text" placeholder="F99" />
+      </div>
+      <div class="row">
+        <label>Libellé</label>
+        <input id="newFactLabel" type="text" placeholder="Description du fait" />
+      </div>
+      <button id="addFact">Ajouter / remplacer</button>
+      <p class="muted">Après ajout, clique “Recharger”.</p>
+    </section>
+
+    <section class="card">
+      <h2>Ajouter une règle</h2>
+      <div class="row">
+        <label>ID</label>
+        <input id="newRuleId" type="text" placeholder="R99" />
+      </div>
+      <div class="row">
+        <label>Conditions (JSON)</label>
+        <input id="newRuleConds" type="text" placeholder='["F1","F11","F12"]' />
+      </div>
+      <div class="row">
+        <label>Conclusion</label>
+        <input id="newRuleThen" type="text" placeholder="CAUSE_POSSIBLE(...)" />
+      </div>
+      <button id="addRule">Ajouter / remplacer</button>
+      <p class="muted">Astuce : tu peux faire des règles en 2 niveaux (cause puis action).</p>
+    </section>
+
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
