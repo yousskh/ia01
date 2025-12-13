@@ -1,6 +1,11 @@
 ;;;; app.lisp — Common Lisp Expert System (SQLite + HTTP API + static frontend)
 ;;;; Dependencies: hunchentoot, cl-json, dbi, dbd-sqlite3, uiop
+;; Charger Quicklisp si présent (Docker/Render)
+(let ((ql-setup #p"/root/quicklisp/setup.lisp"))
+  (when (probe-file ql-setup)
+    (load ql-setup)))
 
+    
 (ql:quickload '(:hunchentoot :cl-json :dbi :dbd-sqlite3 :uiop))
 
 (defpackage :expert

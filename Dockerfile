@@ -5,24 +5,24 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
 COPY app.lisp /app/app.lisp
 COPY static /app/static
-
-# Dossier de DB (persistant si tu montes un volume; sur Render ce sera éphémère en free, OK pour démo)
 RUN mkdir -p /app/data
 
-# Quicklisp + libs Lisp
+# Installer Quicklisp (sans toucher aux init files)
 RUN curl -L -o /tmp/quicklisp.lisp https://beta.quicklisp.org/quicklisp.lisp \
  && sbcl --non-interactive \
     --load /tmp/quicklisp.lisp \
-    --eval '(quicklisp-quickstart:install)' \
-    --eval '(ql:add-to-init-file)' \
+    --eval '(quicklisp-quickstart:install :path "/root/quicklisp")' \
+    --eval '(quit)'
+
+# Précharger les dépendances (IMPORTANT: charger setup.lisp avant ql:quickload)
+RUN sbcl --non-interactive \
+    --load /root/quicklisp/setup.lisp \
     --eval '(ql:quickload :hunchentoot)' \
     --eval '(ql:quickload :cl-json)' \
     --eval '(ql:quickload :dbi)' \
     --eval '(ql:quickload :dbd-sqlite3)' \
-    --eval '(ql:quickload :uiop)' \
     --eval '(quit)'
 
 CMD ["sbcl", "--script", "/app/app.lisp"]
