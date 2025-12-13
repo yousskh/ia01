@@ -10,7 +10,14 @@
 
 <div id="facts"></div>
 
-<button onclick="run()">Chaînage avant</button>
+<select id="mode">
+  <option value="forward">Chaînage avant</option>
+  <option value="backward">Chaînage arrière</option>
+</select>
+
+<input id="goal" placeholder="Goal for backward chaining" style="display:none;">
+
+<button onclick="run()">Lancer diagnostic</button>
 
 <pre id="out"></pre>
 

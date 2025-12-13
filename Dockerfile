@@ -21,6 +21,7 @@ RUN sbcl --non-interactive \
     --load /root/quicklisp/setup.lisp \
     --eval '(ql:quickload :hunchentoot)' \
     --eval '(ql:quickload :cl-json)' \
+    --eval '(ql:quickload :uiop)' \
     --eval '(quit)'
 
 CMD ["sbcl", "--script", "/app/app.lisp"]

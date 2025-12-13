@@ -2,7 +2,7 @@
 
 ;; Load Quicklisp
 (load "/root/quicklisp/setup.lisp")
-(ql:quickload '(:hunchentoot :cl-json))
+(ql:quickload '(:hunchentoot :cl-json :uiop))
 
 (defpackage :expert
   (:use :cl :hunchentoot))
@@ -108,7 +108,7 @@
                (not (member (getf r :then) known :test #'string=)))
           (push (getf r :then) known)
           (push (format nil "~A fired -> ~A" (getf r :id) (getf r :then)) trace)
-          (setf changed t)))))
+          (setf changed t))))
     (list
      :facts known
      :trace (nreverse trace)
@@ -135,7 +135,7 @@
              (list :proven t
                    :trace (list
                            (format nil "Used ~A" (getf r :id))
-                           "All conditions satisfied"))))))))
+                           "All conditions satisfied")))))))))
 
 ;; -------------------------
 ;; HTTP API
@@ -151,7 +151,7 @@
 (define-easy-handler (api-facts :uri "/api/facts") ()
   (json (list :facts (load-facts))))
 
-(define-easy-handler (api-run :uri "/api/diagnostic" :method :post) ()
+(define-easy-handler (api-run :uri "/api/diagnostic") ()
   (let* ((p (cl-json:decode-json-from-string
              (raw-post-data :force-text t)))
          (facts (getf p :facts))

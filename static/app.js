@@ -15,13 +15,24 @@ async function loadFacts() {
 
 async function run() {
   const facts = [...document.querySelectorAll("input:checked")].map(i => i.value);
+  const mode = document.getElementById("mode").value;
+  const goal = document.getElementById("goal").value;
   const r = await fetch("/api/diagnostic", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ mode:"forward", facts })
+    body: JSON.stringify({ mode, facts, goal })
   });
   document.getElementById("out").textContent =
     JSON.stringify(await r.json(), null, 2);
 }
+
+document.getElementById("mode").addEventListener("change", function() {
+  const goalInput = document.getElementById("goal");
+  if (this.value === "backward") {
+    goalInput.style.display = "block";
+  } else {
+    goalInput.style.display = "none";
+  }
+});
 
 loadFacts();
