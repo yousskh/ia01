@@ -1,26 +1,123 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Système expert</title>
-  <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système Expert - IA01</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<h1>Système expert (démo)</h1>
+    <div class="main-wrapper">
+        <header>
+            <div class="header-content">
+                <h1>InfoDiag</h1>
+                <h4>Outil de diagnostic de pannes informatiques</h4>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div id="welcomeScreen" class="screen active fade-in">
+                <div class="welcome-content">
 
-<div id="facts"></div>
+                  <div class="centered margin-bottom-large">
+                    <div class="icon-header"><img src="/static/menu.png" class="welcome-image" alt="Menu"></div>
+                    <p class="subtitle centered">Obtenez l'aide de ce système expert pour la réparation et la maintenance de votre ordinateur. 
+                      En cas de problème, utilisez l'outil de diagnostic de panne. Si vous souhaitez connaître l'impact de vos actions, utilisez l'analyseur d'impact.</p>
+                  </div>
+                    <div class="choice-buttons">
+                        <button class="btn btn-large gradient-blue" id="btnForward">
+                            <span class="btn-icon">🔍</span>
+                            <span class="btn-title">Diagnostic de panne</span>
+                            <span class="btn-desc">J'ai un problème avec mon ordinateur : que faire ?</span>
+                        </button>
+                        
+                        <button class="btn btn-large gradient-purple" id="btnBackward">
+                            <span class="btn-icon">⚙️</span>
+                            <span class="btn-title">Analyse d'impact</span>
+                            <span class="btn-desc">J'ai fait ça sur mon ordinateur : qu'est ce que ça change ?</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-<select id="mode">
-  <option value="forward">Chaînage avant</option>
-  <option value="backward">Chaînage arrière</option>
-</select>
+            <div id="wizardScreen" class="screen fade-in">
+                <div class="progress-wrapper">
+                    <div class="progress-indicator" id="progressIndicator"></div>
+                </div>
+                
+                <div class="wizard-content card-glass">
+                    <h2 id="stepTitle"></h2>
+                    
+                    <div id="factsStep" class="wizard-step">
+                        <div id="currentCategoryFacts"></div>
+                    </div>
+                    
+                    <div id="actionsStep" class="wizard-step">
+                        <div id="currentCategoryActions"></div>
+                    </div>
+                    
+                    <div id="goalStep" class="wizard-step">
+                        <textarea id="goalInput" placeholder="Ex: L'écran reste noir..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="wizard-actions">
+                    <button class="btn btn-secondary" id="btnBack">Retour</button>
+                    <div class="actions-right">
+                        <button class="btn btn-secondary-outline" id="btnSkip">Passer au diagnostic</button>
+                        <button class="btn btn-primary gradient-main" id="btnNext">Suivant</button>
+                    </div>
+                </div>
+            </div>
 
-<input id="goal" placeholder="Goal for backward chaining" style="display:none;">
+            <div id="resultsScreen" class="screen fade-in">
+                <h2>Résultats du diagnostic</h2>
+                
+                <div class="results-container">
+                    <div class="results-column full-width">
+                        <h3 class="res-title actions">Actions recommandées</h3>
+                        <div id="actionsList"></div>
+                    </div>
+                </div>
+                
+                <div class="wizard-actions centered">
+                    <button class="btn btn-secondary" id="btnNewDiagnosis">Retour au menu</button>
+                </div>
+            </div>
 
-<button onclick="run()">Lancer diagnostic</button>
+            <div id="loadingScreen" class="screen fade-in">
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                    <p>Analyse du moteur d'inférence...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<pre id="out"></pre>
+    <footer>
+        <div class="footer-content">
+            <span class="footer-text">IA01 - Système Expert de maintenance informatique</span>
+            <button id="openModalBtn" class="footer-link">À propos</button>
+        </div>
+    </footer>
 
-<script src="/static/app.js"></script>
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>À propos</h2>
+            <p>Outil de diagnostic basé sur un moteur d'inférence à chaînage avant et arrière codé en Common Lisp</p>
+            <p>Réalisé dans le cadre des travaux pratiques de l'UV IA01 - Intelligence artificielle : représentation</p>
+            <p>Université de Technologie de Compiègne</p>
+            <p>Youssef KHEMIRA</p>
+            <div class="modal-info">
+                <p><strong>Version :</strong> 1.1</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ RUN apt-get update \
 
 WORKDIR /app
 COPY app.lisp /app/app.lisp
+COPY db-init.lisp /app/db-init.lisp
 COPY static /app/static
 RUN mkdir -p /app/data
 
@@ -24,4 +25,4 @@ RUN sbcl --non-interactive \
     --eval '(ql:quickload :uiop)' \
     --eval '(quit)'
 
-CMD ["sbcl", "--script", "/app/app.lisp"]
+CMD ["sh", "-c", "rm -rf /app/data && mkdir -p /app/data && sbcl --script /app/app.lisp"]
