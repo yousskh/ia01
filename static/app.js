@@ -18,7 +18,6 @@ async function loadFacts() {
     const data = await response.json();
     allFacts = data.facts || [];
     
-    // Group facts by category
     grouped = {};
     allFacts.forEach(fact => {
       const category = fact[2] || 'Autre';
@@ -46,7 +45,6 @@ async function loadActions() {
     const data = await response.json();
     allActions = data.actions || [];
     
-    // Group actions by type (action_type)
     groupedActions = {};
     allActions.forEach(action => {
       const category = action[1] || 'Autre';
@@ -132,7 +130,7 @@ function renderAllActionCategories() {
       const actionId = `action-${index}-${actionIndex}`;
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
-      checkbox.value = action[0]; // full action string
+      checkbox.value = action[0];
       checkbox.id = actionId;
       checkbox.className = "hidden-checkbox";
       if (selectedActions.includes(action[0])) {
@@ -143,7 +141,7 @@ function renderAllActionCategories() {
       const label = document.createElement("label");
       label.className = "fact-label";
       label.setAttribute("for", actionId);
-      label.textContent = action[2]; // clean message
+      label.textContent = action[2];
       
       actionDiv.addEventListener('click', (e) => {
         e.preventDefault();
@@ -322,7 +320,6 @@ function displayResults(result) {
   const actionsList = document.getElementById("actionsList");
   actionsList.innerHTML = "";
   
-  // Mode chaînage arrière : afficher les problèmes résolus
   if (currentMode === "backward" && result.resolved_problems) {
     displayBackwardResults(result.resolved_problems);
     return;
@@ -331,7 +328,6 @@ function displayResults(result) {
   const preciseActions = [];
   const generalActions = [];
 
-  // Trier les actions : PRECIS vs GENERAL
   if (result.rule_conclusions && result.rule_conclusions.length > 0) {
     result.rule_conclusions.forEach(item => {
       const match = item.match(/ACTION_RECOMMANDEE\([^,]+,(.+)\)$/);
@@ -348,7 +344,6 @@ function displayResults(result) {
     });
   }
   
-  // Afficher les diagnostics précis en premier
   if (preciseActions.length > 0) {
     const titlePrecis = document.createElement("div");
     titlePrecis.className = "results-section-title";
@@ -363,7 +358,6 @@ function displayResults(result) {
     });
   }
   
-  // Afficher les conseils généraux ensuite
   if (generalActions.length > 0) {
     const titleGeneral = document.createElement("div");
     titleGeneral.className = "results-section-title results-section-general";
@@ -378,7 +372,6 @@ function displayResults(result) {
     });
   }
   
-  // Aucune action
   if (preciseActions.length === 0 && generalActions.length === 0) {
     const div = document.createElement("div");
     div.className = "results-item";
@@ -398,7 +391,6 @@ function displayBackwardResults(resolvedProblems) {
     return;
   }
   
-  // Grouper par catégorie (index 2 = category)
   const groupedByCategory = {};
   resolvedProblems.forEach(problem => {
     const category = problem[2] || 'Autre';
@@ -408,13 +400,11 @@ function displayBackwardResults(resolvedProblems) {
     groupedByCategory[category].push(problem);
   });
   
-  // Titre principal
   const mainTitle = document.createElement("div");
   mainTitle.className = "results-section-title";
   mainTitle.innerHTML = "Problèmes potentiellement résolus";
   actionsList.appendChild(mainTitle);
   
-  // Afficher par catégorie
   const sortedCategories = Object.keys(groupedByCategory).sort();
   sortedCategories.forEach(category => {
     const categoryTitle = document.createElement("div");
@@ -425,13 +415,12 @@ function displayBackwardResults(resolvedProblems) {
     groupedByCategory[category].forEach(problem => {
       const div = document.createElement("div");
       div.className = "results-item results-resolved";
-      div.textContent = problem[1]; // index 1 = label du fait
+      div.textContent = problem[1];
       actionsList.appendChild(div);
     });
   });
 }
 
-// Events
 document.getElementById("btnForward").addEventListener("click", startForwardChaining);
 document.getElementById("btnBackward").addEventListener("click", startBackwardChaining);
 document.getElementById("btnNext").addEventListener("click", () => {
@@ -480,7 +469,6 @@ document.getElementById("btnNewDiagnosis").addEventListener("click", () => {
   showScreen("welcomeScreen");
 });
 
-// Modal
 const modal = document.getElementById("aboutModal");
 const openModalBtn = document.getElementById("openModalBtn");
 const closeModalBtn = document.querySelector(".close-modal");
@@ -488,5 +476,4 @@ openModalBtn.addEventListener("click", () => modal.style.display = "flex");
 closeModalBtn.addEventListener("click", () => modal.style.display = "none");
 window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
 
-// Init
 loadFacts();

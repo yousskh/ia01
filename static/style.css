@@ -2,7 +2,7 @@
     --primary: #4F46E5;
     --primary-dark: #4338ca;
     --secondary: #64748b;
-    --bg-body: #f8fafc; /* Légèrement plus clair */
+    --bg-body: #f8fafc;
     --bg-card: #ffffff;
     --text-main: #1e293b;
     --text-muted: #64748b;
@@ -28,7 +28,7 @@ body {
     background: var(--bg-body);
     color: var(--text-main);
     height: 100vh;
-    overflow: hidden; /* Hauteur fixe */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -82,26 +82,23 @@ header h1 {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    /* Correction Ombre : on utilise du padding pour ne pas couper l'ombre */
     padding: 20px 20px 30px 20px; 
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: visible; /* Important pour l'ombre */
-    min-height: 0; /* Important pour flexbox scroll */
+    overflow: visible;
+    min-height: 0;
 }
 
-/* Screen Structure */
 .screen {
     display: none;
     background: var(--bg-card);
     border-radius: 16px;
-    box-shadow: var(--shadow-lg); /* Ombre plus visible */
+    box-shadow: var(--shadow-lg);
     padding: 30px;
     width: 100%;
     height: 100%;
     flex-direction: column;
-    /* Pour éviter que le contenu ne touche les bords arrondis */
     overflow: hidden; 
 }
 
@@ -109,32 +106,28 @@ header h1 {
     display: flex;
 }
 
-/* Animation corrigée : plus courte et subtile */
 .fade-in {
     animation: fadeIn 0.25s ease-out forwards;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); } /* Déplacement réduit */
+    from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Wizard Layout */
 .wizard-content {
     flex: 1;
     overflow-y: auto;
-    /* Correction Espacement Titre */
     padding: 5px 10px 20px 5px; 
     
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
 }
 
-/* Espacement du titre augmenté */
 .wizard-content h2 {
     font-size: 20px;
     color: var(--text-main);
-    margin-bottom: 35px; /* Augmenté */
+    margin-bottom: 35px;
     text-align: left;
     border-left: 4px solid var(--primary);
     padding-left: 15px;
@@ -152,7 +145,6 @@ header h1 {
 
 .margin-bottom-large { margin-bottom: 25px; }
 
-/* Image d'accueil */
 .welcome-image {
     max-width: 280px;
     max-height: 180px;
@@ -168,7 +160,6 @@ header h1 {
     align-items: center;
 }
 
-/* Boutons Navigation */
 .wizard-actions {
     display: flex;
     justify-content: space-between;
@@ -176,7 +167,7 @@ header h1 {
     padding-top: 20px;
     border-top: 1px solid var(--border-color);
     flex-shrink: 0;
-    margin-top: auto; /* Pousse vers le bas */
+    margin-top: auto;
 }
 
 .actions-right { display: flex; gap: 10px; }
@@ -189,7 +180,7 @@ p {
 
 .btn {
     border: none;
-    border-radius: 8px; /* Un peu plus carré */
+    border-radius: 8px;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     cursor: pointer;
@@ -225,11 +216,10 @@ p {
 }
 .btn-secondary-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-/* Checkboxes */
 .fact-list {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 8px; /* Un peu plus serré */
+    gap: 8px;
 }
 
 .fact-item {
@@ -297,7 +287,6 @@ p {
     color: white;
 }
 
-/* Checkbox caché */
 .fact-item .hidden-checkbox {
     position: absolute;
     opacity: 0;
@@ -313,7 +302,6 @@ p {
 }
 #goalInput:focus { outline: none; border-color: var(--primary); }
 
-/* Résultats */
 .results-container {
     display: block;
     flex: 1;
@@ -355,7 +343,6 @@ p {
     box-shadow: var(--shadow-sm);
     line-height: 1.5;
     
-    /* Clipping text */
     white-space: normal;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -390,7 +377,6 @@ p {
     border: 1px solid #a7f3d0;
 }
 
-/* Progress Indicator */
 .progress-wrapper { margin-bottom: 25px; flex-shrink: 0; }
 .progress-indicator { display: flex; justify-content: center; gap: 8px; }
 .progress-dot {
@@ -400,7 +386,6 @@ p {
 .progress-dot.active { background: var(--primary); transform: scale(1.2); }
 .progress-dot.completed { background: #3b82f6; }
 
-/* Footer */
 footer {
     width: 100%; background: var(--bg-body); padding: 10px 0; flex-shrink: 0;
 }
@@ -408,7 +393,6 @@ footer {
 .footer-text { font-size: 11px; color: #94a3b8; }
 .footer-link { background:none; border:none; color: #64748b; font-size:11px; cursor:pointer; }
 
-/* Autres */
 .welcome-content { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .choice-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
 .spinner-container { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -418,7 +402,6 @@ footer {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Modal */
 .modal {
     display: none; position: fixed; z-index: 100; left: 0; top: 0;
     width: 100%; height: 100%; background-color: rgba(0,0,0,0.4);

@@ -10,14 +10,12 @@ COPY db-init.lisp /app/db-init.lisp
 COPY static /app/static
 RUN mkdir -p /app/data
 
-# Quicklisp
 RUN curl -L -o /tmp/quicklisp.lisp https://beta.quicklisp.org/quicklisp.lisp \
  && sbcl --non-interactive \
     --load /tmp/quicklisp.lisp \
     --eval '(quicklisp-quickstart:install :path "/root/quicklisp")' \
     --eval '(quit)'
 
-# Load libs
 RUN sbcl --non-interactive \
     --load /root/quicklisp/setup.lisp \
     --eval '(ql:quickload :hunchentoot)' \

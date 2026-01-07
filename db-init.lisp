@@ -2,14 +2,13 @@
 
 (in-package :expert)
 
-;; DB INIT
 (defun init-db ()
   (sql-exec "DROP TABLE IF EXISTS facts;")
   (sql-exec "DROP TABLE IF EXISTS rules;")
   (sql-exec "CREATE TABLE facts (code TEXT PRIMARY KEY, label TEXT, category TEXT);")
   (sql-exec "CREATE TABLE rules (id TEXT PRIMARY KEY, conds TEXT, conclusion TEXT, action_done TEXT);")
 
-  ;; FACTS - Regroupés par catégorie (beaucoup plus de symptômes)
+  ;; FACTS - Regroupés par catégorie
 
   ;; Catégorie: Performance
   (sql-exec "INSERT INTO facts VALUES ('F1','Mon ordinateur est devenu très lent','Performance');")
